@@ -16,7 +16,7 @@ public class Servidor {
 
     public static void main(String[] args) {
         try {
-            System.setProperty("java.rmi.server.hostname", "192.168.18.56");
+            System.setProperty("java.rmi.server.hostname", "172.20.10.3");
 
             // CONEXÃO COM CLOUD
             CorretoraRemote cloud = null;
@@ -49,7 +49,9 @@ public class Servidor {
 
             while (true) {
                 menu();
-
+                
+                obj.verificarClientesAtivos();
+                
                 int op;
 
                 if (sc.hasNextInt()) {

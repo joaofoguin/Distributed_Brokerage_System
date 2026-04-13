@@ -222,4 +222,24 @@ public class CorretoraImpl extends UnicastRemoteObject implements CorretoraRemot
             }
         }
     }
+
+    public synchronized void verificarClientesAtivos() {
+
+    Iterator<Map.Entry<Integer, ClienteCallback>> it = clientes.entrySet().iterator();
+
+    while (it.hasNext()) {
+        Map.Entry<Integer, ClienteCallback> entry = it.next();
+
+        try {
+            // chama algo leve no cliente
+            entry.getValue().getIdentificacao();
+
+        } catch (Exception e) {
+            System.out.println("Removendo cliente inativo: " + entry.getKey());
+
+            it.remove();
+            identificacoes.remove(entry.getKey());
+        }
+    }
+}
 }

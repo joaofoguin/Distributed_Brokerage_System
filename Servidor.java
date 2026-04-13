@@ -14,6 +14,14 @@ public class Servidor {
         System.out.print("Escolha: ");
     }
 
+    public static String getIP() {
+    try {
+        return java.net.InetAddress.getLocalHost().getHostAddress();
+    } catch (Exception e) {
+        return "IP não encontrado";
+    }
+}
+
     public static void main(String[] args) {
         try {
             System.setProperty("java.rmi.server.hostname", "172.20.10.3");
@@ -28,6 +36,10 @@ public class Servidor {
             } catch (Exception e) {
                 System.out.println("Cloud indisponível, rodando local");
             }
+
+            System.out.println("Servidor pronto!");
+            System.out.println("IP do servidor: " + getIP());
+            System.out.println("Porta: 8080");
 
             CorretoraImpl obj = new CorretoraImpl(cloud);
 
@@ -51,7 +63,7 @@ public class Servidor {
                 menu();
                 
                 obj.verificarClientesAtivos();
-                
+
                 int op;
 
                 if (sc.hasNextInt()) {
